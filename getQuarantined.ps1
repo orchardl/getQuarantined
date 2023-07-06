@@ -7,7 +7,7 @@ $yesterday = $today.AddDays(-1)
 # Get tomorrow's date
 $tomorrow = $today.AddDays(1)
 
-# Convert today's date into the format you specified for the filename
+# Convert today's date into sortable file format
 $todayString = $today.ToString('yyyyMMdd')
 
 # Build the filename
@@ -16,7 +16,7 @@ $filename = "C:\Users\username\QuarantinedEmailsbyDateRange" + $todayString + ".
 # Connect Exchange Online
 Connect-ExchangeOnline -UserPrincipalName your_o365_admin_email@example.com
 
-# Execute your command
+# Get Quarantined Messages
 Get-QuarantineMessage -StartReceivedDate $yesterday -EndReceivedDate $tomorrow | Select ReceivedTime,SenderAddress,RecipientAddress,Subject,MessageID,RecipientCount,QuarantineTypes | Export-Csv -Path $filename -NoTypeInformation -Append -Force
 
 # Send email with Quarantined Messages
